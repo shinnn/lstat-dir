@@ -26,10 +26,8 @@
     "async"
   ],
   "dependencies": {
-    "es6-map": "^0.1.4",
     "graceful-fs": "^4.1.11",
-    "lstat": "^0.1.0",
-    "pinkie-promise": "^2.0.1"
+    "lstat": "^0.1.0"
   },
   "devDependencies": {
     "@shinnn/eslint-config-node-legacy": "^3.0.0",
