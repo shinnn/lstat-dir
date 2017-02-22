@@ -4,11 +4,11 @@
 */
 'use strict';
 
-const inspect = require('util').inspect;
+const {inspect} = require('util');
 const resolvePath = require('path').resolve;
 
 const lstat = require('lstat');
-const readdir = require('graceful-fs').readdir;
+const {readdir} = require('graceful-fs');
 
 function pairsToMap(pairs) {
   return new Map(pairs);
