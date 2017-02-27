@@ -27,11 +27,11 @@
   ],
   "dependencies": {
     "graceful-fs": "^4.1.11",
-    "lstat": "^0.3.0"
+    "lstat": "^1.0.0"
   },
   "devDependencies": {
     "@shinnn/eslint-config-node": "^3.0.0",
-    "eslint": "^3.15.0",
+    "eslint": "^3.16.1",
     "istanbul": "^0.4.5",
     "tape": "^4.6.3"
   },

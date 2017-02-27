@@ -16,8 +16,18 @@ function pairsToMap(pairs) {
 
 const TYPE_ERROR = 'Expected a path of the directory';
 
-module.exports = function lstatDir(dir) {
+module.exports = function lstatDir(...args) {
   return new Promise((resolve, reject) => {
+    const arglen = args.length;
+
+    if (arglen !== 1) {
+      throw new TypeError(`Expected 1 argument (string), but got ${
+        arglen === 0 ? 'no' : arglen
+      } arguments instead.`);
+    }
+
+    const [dir] = args;
+
     if (typeof dir !== 'string') {
       throw new TypeError(`${TYPE_ERROR} (string), but got a non-string value ${inspect(dir)}.`);
     }

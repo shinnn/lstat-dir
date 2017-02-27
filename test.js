@@ -8,7 +8,7 @@ const test = require('tape');
 process.chdir('..');
 
 test('lstatDir()', t => {
-  t.plan(7);
+  t.plan(9);
 
   lstatDir(relative(process.cwd(), __dirname)).then(map => {
     t.ok(map instanceof Map, 'should be fulfilled with a Map instance.');
@@ -50,6 +50,22 @@ test('lstatDir()', t => {
       err.toString(),
       'Error: Expected a path of the directory, but got \'\' (empty string).',
       'should fail when it takes an empty string.'
+    );
+  });
+
+  lstatDir().catch(err => {
+    t.strictEqual(
+      err.toString(),
+      'TypeError: Expected 1 argument (string), but got no arguments instead.',
+      'should fail when it takes no arguments.'
+    );
+  });
+
+  lstatDir('!', '?').catch(err => {
+    t.strictEqual(
+      err.toString(),
+      'TypeError: Expected 1 argument (string), but got 2 arguments instead.',
+      'should fail when it takes too many arguments.'
     );
   });
 });
