@@ -26,8 +26,8 @@
     "async"
   ],
   "dependencies": {
-    "graceful-fs": "^4.1.11",
-    "lstat": "^1.0.0"
+    "lstat": "^1.0.0",
+    "readdir-sorted": "^1.0.0"
   },
   "devDependencies": {
     "@shinnn/eslint-config-node": "^3.0.0",

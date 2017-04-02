@@ -34,9 +34,10 @@ npm install lstat-dir
 const lstatDir = require('lstat-dir');
 ```
 
-### lstatDir(*dir*)
+### lstatDir(*dir*, [*options*])
 
 *dir*: `String` (directory path)  
+*options*: `Object` ([`readdir-sorted`](https://github.com/shinnn/readdir-sorted) options)  
 Return: [`Promise`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
 The returned promise will be fulfilled with a [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map), whose [keys](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map/keys) are absolute paths of contents in the directory, and whose [values](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map/values) are [`fs.Stats`](https://nodejs.org/api/fs.html#fs_class_fs_stats) of contents.
@@ -62,6 +63,21 @@ lstatDir('my-dir').then(stats => {
   stats.get('/Users/example/my-dir/file.txt').isFile(); //=> true
   stats.get('/Users/example/my-dir/symlink').isSymbolicLink()(); //=> true
   stats.get('/Users/example/my-dir/tmp').isDirectory()(); //=> true
+});
+```
+
+Options are directly passed to the underlying [`readdir-sorted`](https://github.com/shinnn/readdir-sorted#readdirsortedpath--options) to control the order of `keys`.
+
+```javascript
+lstatDir('/path/dir').then(stats => {
+  [...stats.keys()]; // => ['/path/dir/10.txt', '/path/dir/2.txt', '/path/dir/ä.txt', '/path/dir/z.txt']
+});
+
+lstatDir('/path/dir').then(paths => {
+  locale: 'sv',
+  numeric: true
+}).then(paths => {
+  [...stats.keys()]; // => ['/path/dir/2.txt', '/path/dir/10.txt', '/path/dir/z.txt', '/path/dir/ä.txt']
 });
 ```
 

@@ -5,7 +5,7 @@ const {join, relative} = require('path');
 const lstatDir = require('.');
 const test = require('tape');
 
-process.chdir('..');
+process.chdir(join(__dirname, '..'));
 
 test('lstatDir()', t => {
   t.plan(9);
@@ -18,11 +18,11 @@ test('lstatDir()', t => {
       '.gitattributes',
       '.gitignore',
       '.travis.yml',
-      'LICENSE',
-      'README.md',
       'index.js',
+      'LICENSE',
       'node_modules',
       'package.json',
+      'README.md',
       'test.js'
     ].map(path => join(__dirname, path)), 'should list all contents in a directory.');
 
@@ -40,7 +40,7 @@ test('lstatDir()', t => {
   lstatDir([1, 2]).catch(err => {
     t.strictEqual(
       err.toString(),
-      'TypeError: Expected a path of the directory (string), but got a non-string value [ 1, 2 ].',
+      'TypeError: Expected a directory path (string), but got [ 1, 2 ] (array).',
       'should fail when it takes a non-string argument.'
     );
   });
@@ -48,7 +48,7 @@ test('lstatDir()', t => {
   lstatDir('').catch(err => {
     t.strictEqual(
       err.toString(),
-      'Error: Expected a path of the directory, but got \'\' (empty string).',
+      'Error: Expected a directory path, but got \'\' (empty string).',
       'should fail when it takes an empty string.'
     );
   });
@@ -56,15 +56,15 @@ test('lstatDir()', t => {
   lstatDir().catch(err => {
     t.strictEqual(
       err.toString(),
-      'TypeError: Expected 1 argument (string), but got no arguments instead.',
+      'TypeError: Expected 1 or 2 arguments (path: String[, options: Object]), but got no arguments.',
       'should fail when it takes no arguments.'
     );
   });
 
-  lstatDir('!', '?').catch(err => {
+  lstatDir('!', {}, '?').catch(err => {
     t.strictEqual(
       err.toString(),
-      'TypeError: Expected 1 argument (string), but got 2 arguments instead.',
+      'TypeError: Expected 1 or 2 arguments (path: String[, options: Object]), but got 3 arguments.',
       'should fail when it takes too many arguments.'
     );
   });
