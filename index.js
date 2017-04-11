@@ -9,17 +9,12 @@ const {resolve} = require('path');
 const lstat = require('lstat');
 const readdirSorted = require('readdir-sorted');
 
-function pairsToMap(pairs) {
-  return new Map(pairs);
-}
+module.exports = async function lstatDir(...args) {
+  const [dir] = args;
+  const paths = await readdirSorted(...args);
 
-module.exports = function lstatDir(...args) {
-  return readdirSorted(...args).then(paths => {
-    const [dir] = args;
-
-    return Promise.all(paths.map(path => {
-      const absolutePath = resolve(dir, path);
-      return lstat(absolutePath).then(stat => [absolutePath, stat]);
-    }));
-  }).then(pairsToMap);
+  return new Map(await Promise.all(paths.map(async path => {
+    const absolutePath = resolve(dir, path);
+    return [absolutePath, await lstat(absolutePath)];
+  })));
 };
