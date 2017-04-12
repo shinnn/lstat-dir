@@ -1,6 +1,6 @@
 {
   "name": "lstat-dir",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Run `fs.lstat` for all contents in a given directory",
   "repository": "shinnn/lstat-dir",
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@shinnn/eslint-config-node": "^3.0.0",
-    "eslint": "^3.18.0",
+    "eslint": "^3.19.0",
     "istanbul": "^0.4.5",
     "tape": "^4.6.3"
   },
