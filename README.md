@@ -1,6 +1,6 @@
 # lstat-dir
 
-[![NPM version](https://img.shields.io/npm/v/lstat-dir.svg)](https://www.npmjs.com/package/lstat-dir)
+[![npm version](https://img.shields.io/npm/v/lstat-dir.svg)](https://www.npmjs.com/package/lstat-dir)
 [![Build Status](https://travis-ci.org/shinnn/lstat-dir.svg?branch=master)](https://travis-ci.org/shinnn/lstat-dir)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/lstat-dir.svg)](https://coveralls.io/github/shinnn/lstat-dir?branch=master)
 
@@ -22,7 +22,7 @@ lstatDir('node_modules/lstat-dir').then(stats => {
 
 ## Installation
 
-[Use npm.](https://docs.npmjs.com/cli/install)
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm).
 
 ```
 npm install lstat-dir
@@ -36,7 +36,7 @@ const lstatDir = require('lstat-dir');
 
 ### lstatDir(*dir*, [*options*])
 
-*dir*: `String` (directory path)  
+*dir*: `string` (directory path)  
 *options*: `Object` ([`readdir-sorted`](https://github.com/shinnn/readdir-sorted) options)  
 Return: [`Promise`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
@@ -83,6 +83,4 @@ lstatDir('/path/dir').then(paths => {
 
 ## License
 
-Copyright (c) 2017 [Shinnosuke Watanabe](https://github.com/shinnn)
-
-Licensed under [the MIT License](./LICENSE).
+[ISC License](./LICENSE) © 2017 Shinnosuke Watanabe

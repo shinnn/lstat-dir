@@ -1,7 +1,3 @@
-/*!
- * lstat-dir | MIT (c) Shinnosuke Watanabe
- * https://github.com/shinnn/lstat-dir
-*/
 'use strict';
 
 const {resolve} = require('path');
