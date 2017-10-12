@@ -21,6 +21,7 @@ test('lstatDir()', t => {
       'index.js',
       'LICENSE',
       'node_modules',
+      'package-lock.json',
       'package.json',
       'README.md',
       'test.js'
