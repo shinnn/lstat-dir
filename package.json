@@ -26,8 +26,7 @@
     "async"
   ],
   "dependencies": {
-    "lstat": "^1.0.0",
-    "readdir-sorted": "^1.0.0"
+    "readdir-sorted": "2.0.0-2"
   },
   "devDependencies": {
     "@shinnn/eslint-config-node": "^4.0.2",
