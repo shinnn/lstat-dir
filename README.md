@@ -9,15 +9,14 @@ Run [`fs.lstat`](https://nodejs.org/api/fs.html#fs_fs_lstat_path_callback) for a
 ```javascript
 const lstatDir = require('lstat-dir');
 
-lstatDir('node_modules/lstat-dir').then(stats => {
-  stats;
-  /* Map {
+(async () => {
+  await lstatDir('node_modules/lstat-dir'); /*=> Map {
     '/Users/example/node_modules/lstat-dir/LICENSE' => {mode: 33188, size: 1086, ...},
     '/Users/example/node_modules/lstat-dir/README.md' => {mode: 33188, size: 2060, ...}
     '/Users/example/node_modules/lstat-dir/index.js' => {mode: 33188, size: 124, ...}
     '/Users/example/node_modules/lstat-dir/package.json' => {mode: 33188, size: 922, ...}
   } */
-});
+})();
 ```
 
 ## Installation
@@ -50,11 +49,12 @@ The returned promise will be fulfilled with a [`Map`](https://developer.mozilla.
        └── debug.log
 */
 
-lstatDir('my-dir').then(stats => {
+(async () => {
+  const stats = await lstatDir('my-dir');
+
   stats instanceof Map; //=> true
 
-  stats.keys();
-  /* MapIterator {
+  stats.keys(); /*=> MapIterator {
     '/Users/example/my-dir/file.txt',
     '/Users/example/my-dir/symlink',
     '/Users/example/my-dir/tmp'
@@ -63,22 +63,22 @@ lstatDir('my-dir').then(stats => {
   stats.get('/Users/example/my-dir/file.txt').isFile(); //=> true
   stats.get('/Users/example/my-dir/symlink').isSymbolicLink()(); //=> true
   stats.get('/Users/example/my-dir/tmp').isDirectory()(); //=> true
-});
+})();
 ```
 
 Options are directly passed to the underlying [`readdir-sorted`](https://github.com/shinnn/readdir-sorted#readdirsortedpath--options) to control the order of `keys`.
 
 ```javascript
-lstatDir('/path/dir').then(stats => {
-  [...stats.keys()]; // => ['/path/dir/10.txt', '/path/dir/2.txt', '/path/dir/ä.txt', '/path/dir/z.txt']
-});
+(async() => {
+  [...(await lstatDir('/path/dir')).keys()];
+  // => ['/path/dir/10.txt', '/path/dir/2.txt', '/path/dir/ä.txt', '/path/dir/z.txt']
 
-lstatDir('/path/dir').then(paths => {
-  locale: 'sv',
-  numeric: true
-}).then(paths => {
-  [...stats.keys()]; // => ['/path/dir/2.txt', '/path/dir/10.txt', '/path/dir/z.txt', '/path/dir/ä.txt']
-});
+  [...(await lstatDir('/path/dir', {
+    locale: 'sv',
+    numeric: true
+  })).keys()];
+  //=> ['/path/dir/2.txt', '/path/dir/10.txt', '/path/dir/z.txt', '/path/dir/ä.txt']
+})();
 ```
 
 ## License

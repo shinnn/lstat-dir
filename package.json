@@ -6,8 +6,7 @@
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
   "scripts": {
     "pretest": "eslint --fix --format=codeframe index.js test.js",
-    "test": "node --throw-deprecation test.js",
-    "coverage": "istanbul cover test.js"
+    "test": "nyc --reporter=html --reporter=text node test.js"
   },
   "license": "ISC",
   "files": [
@@ -31,7 +30,7 @@
   "devDependencies": {
     "@shinnn/eslint-config-node": "^4.0.2",
     "eslint": "^4.9.0",
-    "istanbul": "^0.4.5",
+    "nyc": "^11.3.0",
     "tape": "^4.8.0"
   },
   "eslintConfig": {
