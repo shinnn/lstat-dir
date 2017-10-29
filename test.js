@@ -8,7 +8,7 @@ const test = require('tape');
 process.chdir(join(__dirname, '..'));
 
 test('lstatDir()', async t => {
-  const result = await lstatDir(relative(process.cwd(), __dirname));
+  const result = await lstatDir(__dirname);
 
   t.ok(result instanceof Map, 'should be fulfilled with a Map instance.');
 
@@ -27,6 +27,13 @@ test('lstatDir()', async t => {
   ].map(path => join(__dirname, path)), 'should list all contents in a directory.');
 
   t.notOk([...result.values()][0].isSymbolicLink(), 'should get fs.Stats of each file.');
+
+  process.nextTick(() => process.chdir(join(__dirname, 'node_modules')));
+
+  t.ok(
+    (await lstatDir(relative(process.cwd(), __dirname))).has(__filename),
+    'should work correctly even if the CWD is changed while processing.'
+  );
 
   try {
     await lstatDir('not-found');
