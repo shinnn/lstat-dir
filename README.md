@@ -2,6 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/lstat-dir.svg)](https://www.npmjs.com/package/lstat-dir)
 [![Build Status](https://travis-ci.org/shinnn/lstat-dir.svg?branch=master)](https://travis-ci.org/shinnn/lstat-dir)
+[![Build status](https://ci.appveyor.com/api/projects/status/j3ivxkxqsq6mb8j6/branch/master?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/lstat-dir/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/lstat-dir.svg)](https://coveralls.io/github/shinnn/lstat-dir?branch=master)
 
 Run [`fs.lstat`](https://nodejs.org/api/fs.html#fs_fs_lstat_path_callback) for all contents in a given directory
