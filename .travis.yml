@@ -2,4 +2,10 @@ branches:
   except: /^v\d/
 language: node_js
 node_js: node
-after_script: node_modules/.bin/nyc report --reporter=text-lcov | npx coveralls
+matrix:
+  include:
+  - dist: trusty
+    after_success: node_modules/.bin/nyc report --reporter=text-lcov | npx coveralls
+  - os: windows
+    script: node test.js
+

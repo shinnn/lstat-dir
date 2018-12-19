@@ -1,11 +1,10 @@
 # lstat-dir
 
 [![npm version](https://img.shields.io/npm/v/lstat-dir.svg)](https://www.npmjs.com/package/lstat-dir)
-[![Build Status](https://travis-ci.org/shinnn/lstat-dir.svg?branch=master)](https://travis-ci.org/shinnn/lstat-dir)
-[![Build status](https://ci.appveyor.com/api/projects/status/j3ivxkxqsq6mb8j6/branch/master?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/lstat-dir/branch/master)
+[![Build Status](https://travis-ci.com/shinnn/lstat-dir.svg?branch=master)](https://travis-ci.com/shinnn/lstat-dir)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/lstat-dir.svg)](https://coveralls.io/github/shinnn/lstat-dir?branch=master)
 
-Run [`fs.lstat`](https://nodejs.org/api/fs.html#fs_fs_lstat_path_callback) for all contents in a given directory
+Run [`fs.lstat()`](https://nodejs.org/api/fs.html#fs_fs_lstat_path_options_callback) for all contents in a given directory
 
 ```javascript
 const lstatDir = require('lstat-dir');
@@ -22,7 +21,7 @@ const lstatDir = require('lstat-dir');
 
 ## Installation
 
-[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm).
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/about-npm/).
 
 ```
 npm install lstat-dir
@@ -38,9 +37,9 @@ const lstatDir = require('lstat-dir');
 
 *dir*: `string` (directory path)  
 *options*: `Object` ([`readdir-sorted`](https://github.com/shinnn/readdir-sorted) options)  
-Return: [`Promise`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+Return: `Promise<Map>`
 
-The returned promise will be fulfilled with a [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map), whose [keys](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map/keys) are absolute paths of contents in the directory, and whose [values](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map/values) are [`fs.Stats`](https://nodejs.org/api/fs.html#fs_class_fs_stats) of contents.
+The returned `Promise` is fulfilled with a [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map), whose [keys](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map/keys) are absolute paths of contents in the directory, and whose [values](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map/values) are [`fs.Stats`](https://nodejs.org/api/fs.html#fs_class_fs_stats) of contents.
 
 ```javascript
 /* my-dir
@@ -62,7 +61,7 @@ The returned promise will be fulfilled with a [`Map`](https://developer.mozilla.
   } */
 
   stats.get('/Users/example/my-dir/file.txt').isFile(); //=> true
-  stats.get('/Users/example/my-dir/symlink').isSymbolicLink()(); //=> true
+  stats.get('/Users/example/my-dir/symlink').isSymbolicLink(); //=> true
   stats.get('/Users/example/my-dir/tmp').isDirectory()(); //=> true
 })();
 ```
@@ -84,4 +83,4 @@ Options are directly passed to the underlying [`readdir-sorted`](https://github.
 
 ## License
 
-[ISC License](./LICENSE) © 2017 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2018 Shinnosuke Watanabe
