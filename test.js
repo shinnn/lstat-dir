@@ -1,19 +1,21 @@
 'use strict';
 
-const {dirname, join, relative} = require('path');
+const {dirname, join} = require('path');
+const {isMap} = require('util').types;
 const {pathToFileURL} = require('url');
+const {symlink, unlink} = require('fs').promises;
 
 const lstatDir = require('.');
 const test = require('tape');
 
-process.chdir(join(__dirname, '..'));
+const nonEssentialFilesRe = /(\.DS_Store|\.git|\.nyc_output|coverage)$/u;
 
 test('lstatDir()', async t => {
 	const result = await lstatDir(__dirname);
 
-	t.ok(result instanceof Map, 'should be fulfilled with a Map instance.');
+	t.ok(isMap(result), 'should be fulfilled with a Map instance.');
 
-	t.deepEqual([...result.keys()].filter(path => !/(\.DS_Store|\.git|coverage)$/u.test(path)), [
+	t.deepEqual([...result.keys()].filter(path => !nonEssentialFilesRe.test(path)), [
 		'.editorconfig',
 		'.gitattributes',
 		'.gitignore',
@@ -27,17 +29,17 @@ test('lstatDir()', async t => {
 		'test.js'
 	].map(path => join(__dirname, path)), 'should list all contents in a directory.');
 
+	const dir = dirname(require.resolve('readdir-sorted'));
+	const tmp = join(__dirname, 'test-tmp-dir');
+
+	await symlink(dir, tmp, 'dir');
+
 	t.ok(
-		(await lstatDir(pathToFileURL(dirname(require.resolve('readdir-sorted'))))).values().next().value.isFile(),
+		(await lstatDir(pathToFileURL(tmp))).values().next().value.isFile(),
 		'should get fs.Stats of each file.'
 	);
 
-	process.nextTick(() => process.chdir(join(__dirname, 'node_modules')));
-
-	t.ok(
-		(await lstatDir(Buffer.from(relative(process.cwd(), __dirname)))).has(__filename),
-		'should work correctly even if the CWD is changed while processing.'
-	);
+	await unlink(tmp);
 
 	try {
 		await lstatDir('/__This_directory_doesn/t_exist__');
@@ -53,6 +55,10 @@ test('lstatDir()', async t => {
 		t.equal(err.code, 'ENOTDIR', 'should fail when the target path is not a directory.');
 	}
 
+	t.end();
+});
+
+test('Argument validation', async t => {
 	try {
 		await lstatDir([1, 2]);
 		t.fail('Unexpectedly succeeded.');
