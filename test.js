@@ -1,9 +1,8 @@
 'use strict';
 
 const {dirname, join, relative} = require('path');
-const {URL} = require('url');
+const {pathToFileURL} = require('url');
 
-const fileUrl = require('file-url');
 const lstatDir = require('.');
 const test = require('tape');
 
@@ -14,12 +13,11 @@ test('lstatDir()', async t => {
 
 	t.ok(result instanceof Map, 'should be fulfilled with a Map instance.');
 
-	t.deepEqual([...result.keys()].filter(path => !/(\.DS_Store|\.git|\.nyc_output|coverage)$/.test(path)), [
+	t.deepEqual([...result.keys()].filter(path => !/(\.DS_Store|\.git|coverage)$/u.test(path)), [
 		'.editorconfig',
 		'.gitattributes',
 		'.gitignore',
 		'.travis.yml',
-		'appveyor.yml',
 		'index.js',
 		'LICENSE',
 		'node_modules',
@@ -30,7 +28,7 @@ test('lstatDir()', async t => {
 	].map(path => join(__dirname, path)), 'should list all contents in a directory.');
 
 	t.ok(
-		(await lstatDir(new URL(fileUrl(dirname(require.resolve('readdir-sorted')))))).values().next().value.isFile(),
+		(await lstatDir(pathToFileURL(dirname(require.resolve('readdir-sorted'))))).values().next().value.isFile(),
 		'should get fs.Stats of each file.'
 	);
 
@@ -58,10 +56,10 @@ test('lstatDir()', async t => {
 	try {
 		await lstatDir([1, 2]);
 		t.fail('Unexpectedly succeeded.');
-	} catch (err) {
+	} catch ({code}) {
 		t.equal(
-			err.toString(),
-			'TypeError: path must be a string or Buffer',
+			code,
+			'ERR_INVALID_ARG_TYPE',
 			'should fail when it takes a non-path argument.'
 		);
 	}
