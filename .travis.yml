@@ -4,7 +4,7 @@ language: node_js
 node_js: node
 matrix:
   include:
-  - dist: trusty
+  - dist: xenial
     after_success: node_modules/.bin/nyc report | npx coveralls
   - os: windows
     script: node test.js
