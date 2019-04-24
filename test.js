@@ -9,7 +9,7 @@ const {symlink, unlink} = require('fs').promises;
 const lstatDir = require('.');
 const test = require('tape');
 
-const nonEssentialFilesRe = /(\.DS_Store|\.git|\.nyc_output|coverage)$/u;
+const nonEssentialFilesRe = /(?:\.DS_Store|\.git|\.nyc_output|coverage)$/u;
 const expected = [
 	'.editorconfig',
 	'.gitattributes',
@@ -65,7 +65,7 @@ test('lstatDir()', async t => {
 });
 
 (process.platform === 'win32' ? test : test.skip)('lstatDir() on Windows', async t => {
-	const uncDir = `\\\\${hostname()}\\${__dirname.replace(/^([a-z]):/ui, '$1$')}\\`;
+	const uncDir = `\\\\${hostname()}\\${__dirname.replace(/(?<=^[a-z]):/ui, '$')}\\`;
 	const url = new URL(`file:${uncDir.replace(/\\/ug, '/')}`);
 
 	t.deepEqual(

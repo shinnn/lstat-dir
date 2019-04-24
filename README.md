@@ -2,9 +2,9 @@
 
 [![npm version](https://img.shields.io/npm/v/lstat-dir.svg)](https://www.npmjs.com/package/lstat-dir)
 [![Build Status](https://travis-ci.com/shinnn/lstat-dir.svg?branch=master)](https://travis-ci.com/shinnn/lstat-dir)
-[![Coverage Status](https://img.shields.io/coveralls/shinnn/lstat-dir.svg)](https://coveralls.io/github/shinnn/lstat-dir?branch=master)
+[![codecov](https://codecov.io/gh/shinnn/lstat-dir/branch/master/graph/badge.svg)](https://codecov.io/gh/shinnn/lstat-dir)
 
-Run [`fs.lstat()`](https://nodejs.org/api/fs.html#fs_fs_lstat_path_options_callback) for all contents in a given directory
+Run [`fs.promises.lstat()`](https://nodejs.org/api/fs.html#fs_fspromises_lstat_path_options) for all contents in a given directory
 
 ```javascript
 const lstatDir = require('lstat-dir');
@@ -35,7 +35,7 @@ const lstatDir = require('lstat-dir');
 
 ### lstatDir(*dir*, [*options*])
 
-*dir*: `string` (directory path)  
+*dir*: `string | Buffer | URL` (directory path)  
 *options*: `Object` ([`readdir-sorted`](https://github.com/shinnn/readdir-sorted) options)  
 Return: `Promise<Map>`
 
@@ -83,4 +83,4 @@ Options are directly passed to the underlying [`readdir-sorted`](https://github.
 
 ## License
 
-[ISC License](./LICENSE) © 2017 - 2018 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2019 Shinnosuke Watanabe

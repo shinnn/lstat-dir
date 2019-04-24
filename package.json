@@ -2,12 +2,12 @@
 	"name": "lstat-dir",
 	"version": "2.1.1",
 	"description": "Run `fs.lstat()` for all contents in a given directory",
-	"repository": "shinnn/lstat-dir",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+	"repository": "shinnn/lstat-dir",
 	"license": "ISC",
 	"scripts": {
 		"pretest": "eslint .",
-		"test": "nyc node test.js"
+		"test": "coverage test.js"
 	},
 	"files": [
 		"index.js"
@@ -25,19 +25,15 @@
 		"async"
 	],
 	"dependencies": {
-		"readdir-sorted": "^2.1.0"
+		"readdir-sorted": "^2.1.1"
 	},
 	"devDependencies": {
-		"@shinnn/eslint-config": "^6.8.7",
-		"eslint": "^5.10.0",
-		"nyc": "^13.1.0",
-		"nyc-config-common": "^1.0.1",
-		"tape": "^4.9.1"
+		"@shinnn/eslint-config": "^6.10.2",
+		"coverage": "^0.1.5",
+		"eslint": "^5.16.0",
+		"tape": "^4.10.1"
 	},
 	"eslintConfig": {
 		"extends": "@shinnn"
-	},
-	"nyc": {
-		"extends": "nyc-config-common"
 	}
 }
